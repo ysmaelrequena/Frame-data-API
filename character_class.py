@@ -538,12 +538,9 @@ class Character:
     async def get_framedata(self):
         await self.character_scrape()
         return self.framedata
-'''
-aki = Character(name='A.K.I.', url='https://wiki.supercombo.gg/w/Street_Fighter_6/A.K.I.')
-aki_info = asyncio.run(aki.get_framedata())
-aki_normals = aki_info.get('Normals', 'NULL')
-print(json.dumps(aki_normals, indent=3))
-'''
+    
+    
+
 
 
     
