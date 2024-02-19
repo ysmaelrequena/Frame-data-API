@@ -3,7 +3,11 @@ import json
 import asyncio
 from db_connection import create_connection, get_cursor
 from character_class import Character
-#In this module I'll create the characters table, I'm gonna hard code it, since it isn't going to change, and i'll add new characters as they come out
+
+'''
+In this module I'll use the web scraper created within the 'Character' class to fetch the information of every character and then upload all the info into my db
+which will be used to then feed the API with the information.
+'''
 
 character_framedata = None
 normals = {}
@@ -65,6 +69,8 @@ async def character_class_definer(character_id):
     cursor.close()
     connection.close()
     
+    # Moves and their data will be stored in dictionaries to then pass them to the next function
+    
     new_character = Character(name= name, url= url)
     character_framedata = await new_character.get_framedata()
     normals = character_framedata.get('Normals', 'NULL')
@@ -93,14 +99,8 @@ async def insert_data_db(move_t, table, character_id):
         cursor = get_cursor(connection)
     except mysql.connector.Error as err:
                 print(f"Error: {err}")
-        
-    # We reset the table to prevent conflicts with the moves' ID
-
-    #table_reset_query = f'DROP TABLE IF EXISTS {table}'
-    
-    #cursor.execute(table_reset_query)
   
-    # We recreate the table with the same constraints
+    # We create the table with the corresponding constraints
     
     table_recreation_query = f'''CREATE TABLE IF NOT EXISTS {table} (
             move_id SMALLINT PRIMARY KEY AUTO_INCREMENT UNIQUE,
@@ -152,6 +152,8 @@ async def insert_data_db(move_t, table, character_id):
                 
     cursor.close()
     connection.close()
+    
+# We create a recursive function to automatize the insertion of data into the database
 
 async def main_data_insert_recursion(current_character_id, max_character_id):
     if current_character_id <= max_character_id:
@@ -169,6 +171,8 @@ async def main_data_insert_recursion(current_character_id, max_character_id):
 
         # Recursive call with proper awaiting
         return await main_data_insert_recursion(current_character_id + 1, max_character_id)
+    
+# Finally, we run the main_data_insert_recursion function and it inserts the data for the 20 characters in SF6 into our database
         
 asyncio.run(main_data_insert_recursion(1, 20))
 

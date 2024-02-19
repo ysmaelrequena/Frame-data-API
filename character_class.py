@@ -4,6 +4,13 @@ import json
 import asyncio
 import aiohttp
 
+'''
+In this module, we're building a web scraper, to use on the Super Combo Wiki of SF6, to extract the frame data of the 20 characters in the game so far.
+In order to do that, I'll use the builder method, because, while it is true that most characters have the same components to their moveset,
+'Chun-Li', has an extra stance that requires an extra subdictionary, and also, the frame data for everyone is different, so the instances of the 'Character' class
+aren't built equally
+'''
+
 class Character:
     
     def __init__(self, name, url):
@@ -534,6 +541,8 @@ class Character:
 
         self.framedata = character_framedata
         return self.framedata
+    
+    # Finally we create a function that awaits for the scraper to finish and it returns the dictionary with all of the character's info
     
     async def get_framedata(self):
         await self.character_scrape()
