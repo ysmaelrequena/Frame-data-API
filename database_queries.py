@@ -22,7 +22,9 @@ def character_list():
     rows = cursor.fetchmany(size=20)   
 
     for char_id, name in rows:
-        characters[char_id] = name 
+        characters[char_id] = name
+    
+    
     
     return characters
 
@@ -85,7 +87,6 @@ def character_moveset_fetch(id: int, name: str):
                 if move_type == 'serenity_stance' and name != 'Chun-Li':
                     continue
                 
-                #if move_type == 'serenity_stream':
                  
                 inner_moveset = {f'{move_name}': {
                     'nomenclature' : f'{move_nomenclature}',
@@ -100,8 +101,12 @@ def character_moveset_fetch(id: int, name: str):
                     }
                 }
                 
-                character_moveset[move_type].update(inner_moveset)
-        
+                new_inner_moveset = {move_name: [attributes] for move_name, attributes in inner_moveset.items()}
+
+                character_moveset[move_type].update(new_inner_moveset)
+                
+                 
+                
         return character_moveset
                 
             
@@ -109,8 +114,32 @@ def character_moveset_fetch(id: int, name: str):
                 print(f"Error: {err}")
                 
 
-# character_moveset_fetch(4, 'chun-li')
+#function to retrieve the id of characters for the queries for just a single type of move
+
+def retrieve_id(name: str):
     
+    try:
+        
+        connection = create_connection()
+        cursor = get_cursor(connection)
+        
+        id_query = f'''
+        SELECT id from characters
+        WHERE character_name = '{name.upper()}';
+        '''
+    
+        cursor.execute(id_query)
+        id_char = cursor.fetchone()
+        
+        cursor.close()
+        connection.close() 
+        
+        return id_char[0] 
+        
+    except mysql.connector.Error as err:
+                print(f"Error: {err}")    
+                
+
             
         
         
