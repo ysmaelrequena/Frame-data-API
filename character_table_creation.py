@@ -174,7 +174,7 @@ async def main_data_insert_recursion(current_character_id, max_character_id):
     
 # Finally, we run the main_data_insert_recursion function and it inserts the data for the 20 characters in SF6 into our database
         
-asyncio.run(main_data_insert_recursion(1, 20))
+asyncio.run(main_data_insert_recursion(1, 21))
 
     
 

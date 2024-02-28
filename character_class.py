@@ -548,6 +548,8 @@ class Character:
         await self.character_scrape()
         return self.framedata
     
+
+    
     
 
 

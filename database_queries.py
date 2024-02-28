@@ -29,49 +29,94 @@ def character_list():
 
 #character moveset return with frame data response
 
-def character_moveset_fetch(id: int, name: str, table: str):
+tables = ['normals', 'command_normals', 'target_combos', 'throws', 'drive_system', 'special_moves', 'super_arts', 'taunts', 'serenity_stance']
+
+def character_moveset_fetch(id: int, name: str):
     
+#First, we create the dictionaries that are going to receive the info from the database
+    
+    if name != 'Chun-Li':
+    
+        character_moveset = {
+                            'character': f'{name}',
+                            'normals': {},
+                            'command_normals': {},
+                            'target_combos': {},
+                            'throws': {},
+                            'drive_system': {},
+                            'special_moves': {},
+                            'super_arts': {},
+                            'taunts': {}
+                            }
+    else:
+        
+        character_moveset = {
+                            'character': f'{name}',
+                            'normals': {},
+                            'command_normals': {},
+                            'target_combos': {},
+                            'throws': {},
+                            'drive_system': {},
+                            'special_moves': {},
+                            'super_arts': {},
+                            'taunts': {},
+                            'serenity_stance': {}
+                            }
+        
+
+#Then, we connect to the db to retrieve the info.
+
     try:
+        
         connection = create_connection()
         cursor = get_cursor(connection)
+        
+        
+        for move_type in tables:
+            character_moveset_fetch = f'''
+                SELECT move_name, move_nomenclature, startup, active_f, recovery, cancel, damage, guard, on_hit, on_block FROM {move_type}
+                WHERE character_id = {id};
+                '''
+            cursor.execute(character_moveset_fetch)
+            moveset = cursor.fetchall()
+
+            for move_name, move_nomenclature, startup, active_f, recovery, cancel, damage, guard, on_hit, on_block in moveset:
+                
+                if move_type == 'serenity_stance' and name != 'Chun-Li':
+                    continue
+                
+                #if move_type == 'serenity_stream':
+                 
+                inner_moveset = {f'{move_name}': {
+                    'nomenclature' : f'{move_nomenclature}',
+                    'startup' : f'{startup}',
+                    'active_f' : f'{active_f}',
+                    'recovery' : f'{recovery}',
+                    'cancel' : f'{cancel}',
+                    'damage' : f'{damage}',
+                    'guard' : f'{guard}',
+                    'on_hit' : f'{on_hit}',
+                    'on_block' : f'{on_block}'
+                    }
+                }
+                
+                character_moveset[move_type].update(inner_moveset)
+        
+        return character_moveset
+                
+            
     except mysql.connector.Error as err:
                 print(f"Error: {err}")
                 
-    normals_fetch_query = f'''
-    SELECT move_name, move_nomenclature, startup, active_f, recovery, cancel, damage, guard, on_hit, on_block FROM normals
-    WHERE character_id = {id};
-    '''
-    
-    specials_fetch_query = f'''
-    SELECT move_name, move_nomenclature, startup, active_f, recovery, cancel, damage, guard, on_hit, on_block FROM special_moves
-    WHERE character_id = {id};
-    '''
-    
-    cmd_normals_fetch_query = f'''
-    SELECT move_name, move_nomenclature, startup, active_f, recovery, cancel, damage, guard, on_hit, on_block FROM command_normals
-    WHERE character_id = {id};
-    '''
-    
-    tgt_combos_fetch_query = f'''
-    SELECT move_name, move_nomenclature, startup, active_f, recovery, cancel, damage, guard, on_hit, on_block FROM target_combos
-    WHERE character_id = {id};
-    '''
-    
-    throws_fetch_query = f'''
-    SELECT move_name, move_nomenclature, startup, active_f, recovery, cancel, damage, guard, on_hit, on_block FROM throws
-    WHERE character_id = {id};
-    '''
-    
-    drv_system_fetch_query = f'''
-    SELECT move_name, move_nomenclature, startup, active_f, recovery, cancel, damage, guard, on_hit, on_block FROM drive_system
-    WHERE character_id = {id};
-    '''
-    
-    special_moves_fetch_query = f'''
-    SELECT move_name, move_nomenclature, startup, active_f, recovery, cancel, damage, guard, on_hit, on_block FROM target_combos
-    WHERE character_id = {id};
-    '''
 
+# character_moveset_fetch(4, 'chun-li')
+    
+            
+        
+        
+        
+                
+    
 
     
     
