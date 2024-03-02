@@ -135,7 +135,7 @@ https://github.com/ysmaelrequena/Fighting-game-API/
 cd fighting_game_api
 ```
 
-###                                     Run The Project
+###                                     Run The Project Locally
 
 1. Set up your database parameters in the 'db_connection_generic' module, then, using the query sheet in the 'MySQL_queries' folder, create the database with the queries:
 
@@ -164,8 +164,10 @@ Then copy and paste the location that Uvicorn gives you into Postman or your web
 The following endpoints can be explored if you include a '/' and the name of the endpoint to the end of the URL:
 
 ```
-
+yoururl/
 ```
+This is the root page, it'll instruct you to come to the documentation or you can also do ```yoururl/docs``` for documentation provided by
+Swagger AI which will specify the endpoints and what they return.
 
 
 
