@@ -135,6 +135,38 @@ https://github.com/ysmaelrequena/Fighting-game-API/
 cd fighting_game_api
 ```
 
+###                                     Run The Project
+
+1. Set up your database parameters in the 'db_connection_generic' module, then, using the query sheet in the 'MySQL_queries' folder, create the database with the queries:
+
+```
+CREATE DATABASE fighting_game_api;
+USE fighting_game_api;
+```
+
+
+2. Inside the 'sf6/routers' directory run the following command in your CLI:
+
+```
+python character_table_creation.py
+```
+
+3. If you're using Uvicorn to run an instance of the API locally, then in the root directory of the project, run:
+
+```
+uvcorn main:app --reload
+```
+Then copy and paste the location that Uvicorn gives you into Postman or your web browser of choice and the API should work.
+
+
+##                                        Endpoints
+
+The following endpoints can be explored if you include a '/' and the name of the endpoint to the end of the URL:
+
+```
+
+```
+
 
 
 
