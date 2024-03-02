@@ -6,7 +6,7 @@ competitive knowledge of their game.
 ##                                       How did I build it?
 
 
-#                                        The "Character_class" module
+###                                        The "Character_class" module
 
 FGPI was built with Python in tandem with the FastAPI framework, which is equipped with several features that helped me streamline the creation process. Aside from that, 
 I reutilized the Web Scraper from my last project: "The Street Fighter 6 Frame Data CLI Tool", but I adapted it to use a different approach this time that makes it easier 
@@ -18,33 +18,36 @@ class. This is all contained in the "Character_class" module that is inside the 
 The three methods inside this "Character" class are the following:
 
 ```
-set_htmltext
+set_htmltext(self)
 ```
 
 - Gets the HTML from the website it's scraping and it assigns it to the "htmltext" property of the "Character" class.
 
 ```
-character_scrape
+character_scrape(self)
 ```
 
-- This class contains the web scraper, it goes to the web page, in this case Supercombo wiki (for any character), and extracts the information, stores it into multiple dictionaries and
+- This method contains the web scraper, it goes to the web page, in this case Supercombo wiki (for any character), and extracts the information, stores it into multiple dictionaries and
 these are appended into a "character_framedata" dictionary, thus creating a dictionary that contains all the frame data for the character in an organized way that's easy to handle.
 
 ```
-get_framedata
+get_framedata(self)
 ```
 
 - Last but no least, this method runs the two methods described above and returns the dictionary with all the information needed.
 
 
-  #                                        Storing the data
+
+###                                        Storing the data
 
 For the Database, I went with a SQL solution and the RDBMS I used was MySQL.
 
 The database consists initially of a 'characters' table that contains every character and their ID in the system that will serve as our foreign key to
 assign their respective moves to them. 
 
-In the ```insert_data_db(move_t, table, character_id)``` function located in the 'character_table_creation' module
+In the ```insert_data_db(move_t, table, character_id)``` function located in the 'character_table_creation' module, the tables for each type of move will be created when it runs for the first
+character. In case the game gets updated, my preferred method of updating my database is dropping the tables in MySQL through a series of predetermined queries already stored in the 
+'/MySQL_queries' directory of the project and running the ```main_data_insert_recursion(current_character_id, max_character_id)``` function located in the 'character_table_creation' module.
 
 I created two modules called 'character_table_creation' and 'db_connection_generic', respectively.
 
@@ -70,5 +73,75 @@ main_data_insert_recursion(current_character_id, max_character_id)
 ```
 
 This one, as its name indicates, is a recursive function that, once ran by the developer, it goes through all of the character IDs (defined in the database) and runs the function for each character
-in their respective URL from the SuperComboWiki and finally, inserts everything into the different tables created for every type of move.
+in their respective URL from the SuperComboWiki and finally, inserts everything into the different tables created for every type of move through our 'db_connection_generic'
+
+
+-'db_connection_generic' contains two functions:
+
+```
+create_connection()
+```
+
+For this function to work, the developer should introduce the data where the parameters of their connection to their database and it'll let them create a conncetion to their database with MySQL, for example:
+
+```
+def create_connection():
+    connection_params = {
+        'host': 'here goes your connection instance',
+        'user': 'here goes your username',
+        'password': 'here goes your password',
+        'database': 'fighting_game_api'
+    }
+```
+
+Finally we have 
+
+```
+get_cursor(connection)
+```
+
+This will use the connection specified above to configure a cursor so the developer can execute the MySQL queries with Python.
+
+
+###                                        Adquiring the data from the DB
+
+I created a moduled called 'database_queries', in which the system queries the data for the character requested in the API whenever it gets a GET request. The module also includes a function which retrieves the
+character list with their respective IDs.
+
+
+###                                        Routing the data
+
+After running the functions described above, the endpoints included in the 'sf6_endpoints' module are called by the 'main' module and their routed using FastAPI's integrated router system, whenever the user
+does a GET request, the information is displayed.
+
+
+##                                        Requirements
+
+- Python 3.12.2 or newer.
+- PIP.
+- The project includes all its dependencies in the Run this command to install all the extra dependencies the 'requirements.txt' file.
+
+ You can run this command in you CLI in the root directory of the project and Python will install all the dependencies needed:
+
+```
+pip install -r requirements.txt
+```
+
+##                                        Quick Start
+
+```
+git clone
+https://github.com/ysmaelrequena/Fighting-game-API/
+cd fighting_game_api
+```
+
+
+
+
+
+
+
+
+
+
 
