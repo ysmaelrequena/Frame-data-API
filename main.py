@@ -8,6 +8,6 @@ app = FastAPI()
 @app.get("/")
 
 def welcome():
-    return '''Welcome to the Fighting Game API! Please visit (GH documentation) or url/docs for information about the endpoints of the API.'''
+    return '''Welcome to the Fighting Game API! Please visit our documentation: (GH documentation) or url/docs for information about the endpoints of the API.'''
 
 app.include_router(sf6_endpoints.sf6_router)

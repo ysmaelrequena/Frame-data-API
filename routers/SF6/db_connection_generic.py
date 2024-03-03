@@ -3,9 +3,9 @@ import mysql.connector
 
 def create_connection():
     connection_params = {
-        'host': '',
-        'user': '',
-        'password': '',
+        'host': 'localhost',
+        'user': 'ysmael',
+        'password': 'yjro24766337',
         'database': 'fighting_game_api'
     }
     

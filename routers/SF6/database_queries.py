@@ -1,5 +1,4 @@
-from .db_connection import create_connection, get_cursor
-import json
+from .db_connection_generic import create_connection, get_cursor
 import mysql.connector
 
 
