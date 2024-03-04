@@ -1,3 +1,5 @@
+![Alt Text](https://github.com/ysmaelrequena/Fighting-game-API/blob/main/top10fighting-1660091625986.jpg)
+
 #                                       A Fighting Game API so you can get the frame data of the characters and build your dream App!
 
 The "FGPI" is, like its name indicates, is a compendium of frame data from different games, so that developers can fetch all the information and build tools for players looking for 
