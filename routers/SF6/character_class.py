@@ -27,7 +27,7 @@ class Character:
         async with aiohttp.ClientSession(headers=headers) as session:
             async with session.get(self.url) as response:
                 if response.status == 200:
-                    print(f'Successful response babe')
+                    print(f'Successful response')
                     html_text = await response.text()
                     self.htmltext = html_text
                     return self.htmltext

@@ -56,17 +56,6 @@ def movetype_display(character_name: str, movetype: str):
 Version 2:
 Trabajar en endpoint que devuelva al usuario un CSV con la informacion de todos los personajes
 '''
-            
-
-            
-
-        
-    
-
-
-
-
-
 
 
 

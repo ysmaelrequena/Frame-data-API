@@ -1,6 +1,6 @@
 import mysql.connector
 import asyncio
-from .db_connection import create_connection, get_cursor
+from .db_connection_generic import create_connection, get_cursor
 from .character_class import Character
 
 '''
