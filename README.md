@@ -163,11 +163,34 @@ Then copy and paste the location that Uvicorn gives you into Postman or your web
 
 The following endpoints can be explored if you include a '/' and the name of the endpoint to the end of the URL:
 
+
+Character List with their IDs:
+
 ```
-yoururl/
+yoururl/SF6/characters/
 ```
-This is the root page, it'll instruct you to come to the documentation or you can also do ```yoururl/docs``` for documentation provided by
-Swagger AI which will specify the endpoints and what they return.
+
+Character full movesets:
+
+```
+yoururl/SF6/characters/{EnterYourCharacterName}
+```
+
+Character move type list (example: normals, throws):
+
+```
+yoururl/SF6/characters/{EnterYourCharacterName}/movetype_list_name
+```
+
+Character list of moves separated by type:
+
+```
+yoururl/SF6/characters/{character_name}/{movetype}
+```
+
+##                                    Contribuing
+
+If you'd like to contribute, please fork the repository and open a pull request to the main branch.
 
 
 
