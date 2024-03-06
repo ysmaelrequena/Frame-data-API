@@ -157,7 +157,7 @@ python character_table_creation.py
 3. If you're using Uvicorn to run an instance of the API locally, then in the root directory of the project, run:
 
 ```
-uvcorn main:app --reload
+uvicorn main:app --reload
 ```
 Then copy and paste the location that Uvicorn gives you into Postman or your web browser of choice and the API should work.
 
