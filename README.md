@@ -1,5 +1,6 @@
 ![Alt Text](https://github.com/ysmaelrequena/Fighting-game-API/blob/main/top10fighting-1660091625986.jpg)
 
+
 #                                       A Fighting Game API so you can get the frame data of the characters and build your dream App!
 
 The "FGPI" is, like its name indicates, is a compendium of frame data from different games, so that developers can fetch all the information and build tools for players looking for 
@@ -185,7 +186,7 @@ python character_table_creation.py
 3. If you're using Uvicorn to run an instance of the API locally, then in the root directory of the project, run:
 
 ```
-uvcorn main:app --reload
+uvicorn main:app --reload
 ```
 Then copy and paste the location that Uvicorn gives you into Postman or your web browser of choice and the API should work.
 
