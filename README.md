@@ -127,6 +127,35 @@ does a GET request, the information is displayed.
 pip install -r requirements.txt
 ```
 
+If it's more convenient for you, you can set up a virtual environment like this:
+
+Run this command in your terminal:
+
+```
+python -m venv .venv
+```
+
+Python will create a directory called '.venv' inside of the root of the project.
+
+
+Then, if you're on Windows, run this:
+
+```
+.venv\Scripts\activate
+```
+
+Or fi you're on Mac or Linux:
+
+```
+source .venv/bin/activate
+```
+
+And whenever you want to stop using the venv created, just run:
+
+```
+deactivate
+```
+
 ##                                        Quick Start
 
 ```
