@@ -135,6 +135,7 @@ class Character:
 
 #normals
             #organize normal moves names
+            
             if normal_names:
 
                 n_divs = normal_names.find_all('div', class_='movedata-flex-framedata-name-item movedata-flex-framedata-name-item-middle')

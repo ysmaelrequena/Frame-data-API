@@ -1,7 +1,7 @@
 from fastapi import APIRouter
-from .database_queries import character_list
-from .database_queries import character_moveset_fetch
-from .database_queries import retrieve_id
+from routers.SF6.database_queries import character_list
+from routers.SF6.database_queries import character_moveset_fetch
+from routers.SF6.database_queries import retrieve_id
 
 sf6_router = APIRouter(prefix="/SF6/characters",tags=['sf6'])
 

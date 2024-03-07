@@ -1,4 +1,4 @@
-from .db_connection_generic import create_connection, get_cursor
+from routers.SF6.db_connection_generic import create_connection, get_cursor
 import mysql.connector
 
 
@@ -75,6 +75,8 @@ def character_moveset_fetch(id: int, name: str):
         connection = create_connection()
         cursor = get_cursor(connection)
         
+        subdict_name = ''
+        
         
         for move_type in tables:
             character_moveset_fetch = f'''
@@ -88,12 +90,13 @@ def character_moveset_fetch(id: int, name: str):
             move_name_counts = {}
 
             for move_name, move_nomenclature, startup, active_f, recovery, cancel, damage, guard, on_hit, on_block in moveset:
-                # Check if the move name already exists in the character_moveset
+            # Check if the move name already exists in the character_moveset, if the move name already exists, increment the count for this move name
+            
                 if move_name in character_moveset.get(move_type, {}):
-                    # If the move name already exists, increment the count for this move name
                     move_name_counts[move_name] = move_name_counts.get(move_name, 1) + 1
                     count = move_name_counts[move_name]
-                    # Determine the prefix based on the count of occurrences
+                    
+                    # Determine the prefix based on the count
                     if count == 1:
                         prefix = 'L'
                     elif count == 2:
@@ -102,11 +105,13 @@ def character_moveset_fetch(id: int, name: str):
                         prefix = 'H'
                     else:
                         prefix = 'EX'
-                    # Append the prefix to the move name
+                    
                     move_name = f'{prefix} {move_name}'
+                   
 
                 # Update the character_moveset with the inner moveset
-                character_moveset.setdefault(move_type, {})[move_name] = {
+                character_moveset.setdefault(move_type, {})['_'.join(move_name.split(' '))] = {
+                    'move_name': move_name,
                     'nomenclature': move_nomenclature,
                     'startup': startup,
                     'active_f': active_f,

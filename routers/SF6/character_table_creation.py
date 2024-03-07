@@ -1,7 +1,7 @@
 import mysql.connector
 import asyncio
-from .db_connection_generic import create_connection, get_cursor
-from .character_class import Character
+from routers.SF6.db_connection_generic import create_connection, get_cursor
+from routers.SF6.character_class import Character
 
 '''
 In this module I'll use the web scraper created within the 'Character' class to fetch the information of every character and then upload all the info into my db
