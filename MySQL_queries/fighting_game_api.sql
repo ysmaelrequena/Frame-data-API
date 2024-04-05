@@ -1,3 +1,11 @@
+-- Create Dtabase for use
+
+CREATE DATABASE fighting_game_api;
+USE fighting_game_api;
+
+-- Dropping database for updates if needed
+DROP DATABASE fighting_game_api;
+
 	-- Select list for all the tables
     
     SELECT * from characters;
@@ -11,14 +19,8 @@
     SELECT * from taunts;
     SELECT * from serenity_stance;
     
-    SELECT id from characters
-    WHERE character_name = RYU;
-    
--- Dropping database for updates if needed
-
-DROP DATABASE fighting_game_api;
-CREATE DATABASE fighting_game_api;
-USE fighting_game_api;
+    SELECT * from super_arts
+	WHERE character_id = 19;
 
 -- Recreate the character table which is the matrix of all
 
@@ -52,3 +54,18 @@ VALUES
 ('RASHID'),
 ('RYU'),
 ('ZANGIEF');
+
+-- Queries for security and authentication
+
+CREATE TABLE users (
+user_id INT AUTO_INCREMENT PRIMARY KEY,
+username VARCHAR(255),
+email VARCHAR(255)
+);
+
+DROP TABLE users;
+
+CREATE TABLE user_pass (
+
+FOREIGN KEY (user_id) REFERENCES users(user_id)
+)

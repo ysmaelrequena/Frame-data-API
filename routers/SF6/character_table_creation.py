@@ -1,6 +1,6 @@
 import mysql.connector
 import asyncio
-from routers.SF6.db_connection_generic import create_connection, get_cursor
+from db_connection_generic import create_connection, get_cursor
 from routers.SF6.character_class import Character
 
 '''

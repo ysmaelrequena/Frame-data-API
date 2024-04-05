@@ -3,7 +3,7 @@ from routers.SF6.database_queries import character_list
 from routers.SF6.database_queries import character_moveset_fetch
 from routers.SF6.database_queries import retrieve_id
 
-sf6_router = APIRouter(prefix="/SF6/characters",tags=['sf6'])
+sf6_router = APIRouter(prefix="/games/SF6/characters",tags=['sf6'])
 
 #Endpoint for the character list
 
