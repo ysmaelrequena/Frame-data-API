@@ -3,10 +3,25 @@ import mysql.connector
 
 def create_connection():
     connection_params = {
-        'host': 'localhost',
-        'user': 'ysmael',
+        'host': 'fdapi-demo.c1mscg0yumsx.us-east-2.rds.amazonaws.com',
+        'user': 'admin',
         'password': 'yjro24766337',
-        'database': 'fighting_game_api'
+        'database': 'frame_data_api'
+    }
+    
+    try:
+        connection = mysql.connector.connect(**connection_params)
+        return connection
+    except Exception as e:
+        print(f"Error: Unable to connect to the database - {e}")
+        raise
+    
+def create_connection_users():
+    connection_params = {
+        'host': 'fdapi_users_db',
+        'user': 'root',
+        'password': 'yjro24766337',
+        'database': 'users_FDAPI'
     }
     
     try:

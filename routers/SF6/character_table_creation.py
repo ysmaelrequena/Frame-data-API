@@ -1,7 +1,8 @@
 import mysql.connector
 import asyncio
-from db_connection_generic import create_connection, get_cursor
+from routers.SF6.db_connection_local import create_connection, get_cursor
 from routers.SF6.character_class import Character
+import json
 
 '''
 In this module I'll use the web scraper created within the 'Character' class to fetch the information of every character and then upload all the info into my db
@@ -57,6 +58,8 @@ async def character_class_definer(character_id):
             url =f'''https://wiki.supercombo.gg/w/Street_Fighter_6/JP'''
         elif name == 'A.k.i':
             url = f'''https://wiki.supercombo.gg/w/Street_Fighter_6/A.K.I.'''
+        elif name == 'M.bison':
+            url = f'''https://wiki.supercombo.gg/w/Street_Fighter_6/M.Bison'''
         else:
             url = f'''https://wiki.supercombo.gg/w/Street_Fighter_6/{name}'''
             
@@ -72,16 +75,17 @@ async def character_class_definer(character_id):
     
     new_character = Character(name= name, url= url)
     character_framedata = await new_character.get_framedata()
-    normals = character_framedata.get('Normals', 'NULL')
-    command_normals = character_framedata.get('Command Normals', 'NULL')
-    target_combos = character_framedata.get('Target Combos', 'NULL')
-    throws = character_framedata.get('Throws', 'NULL')
-    drive_system = character_framedata.get('Drive System', 'NULL')
-    special_moves = character_framedata.get('Special Moves', 'NULL')
-    super_arts = character_framedata.get('Super Arts', 'Null')
-    taunts = character_framedata.get('Taunts', 'NULL')
-    serenity_stance = character_framedata.get('Serenity Stream', 'Null')
+    normals = character_framedata.get('normals', 'NULL')
+    command_normals = character_framedata.get('command_normals', 'NULL')
+    target_combos = character_framedata.get('target_combos', 'NULL')
+    throws = character_framedata.get('throws', 'NULL')
+    drive_system = character_framedata.get('drive_system', 'NULL')
+    special_moves = character_framedata.get('special_moves', 'NULL')
+    super_arts = character_framedata.get('super_arts', 'Null')
+    taunts = character_framedata.get('taunts', 'NULL')
+    serenity_stance = character_framedata.get('serenity_stream', 'Null')
     dict_names = [normals, command_normals, target_combos, throws, drive_system, special_moves, super_arts, taunts]
+    print(dict_names)
     
     
     
@@ -90,6 +94,7 @@ async def character_class_definer(character_id):
 # Functions for data insertion into the db
 
 async def insert_data_db(move_t, table, character_id):
+    print(move_t)
     
     # We create the connection to the db, based on the parameters imported from the 'db_connection.py' module
     #print(move)
@@ -125,11 +130,11 @@ async def insert_data_db(move_t, table, character_id):
     
             VALUES
             (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
-            '''
-            
+            '''   
+                            
     for move_nom, move_info in move_t.items():
         for move_name, details in move_info.items():
-            
+                
             startup = details.get('Startup', 'NULL')
             active_f = details.get('Active', 'NULL')
             recovery = details.get('Recovery', 'NULL')
@@ -138,7 +143,7 @@ async def insert_data_db(move_t, table, character_id):
             guard = details.get('Guard', 'NULL')
             on_hit = details.get('On Hit', 'NULL')
             on_block = details.get('On Block', 'NULL')
-            
+                     
             data = (character_id, move_name, move_nom, startup, active_f, recovery, cancel, damage, guard, on_hit, on_block)
                 
         try:
@@ -164,7 +169,7 @@ async def main_data_insert_recursion(current_character_id, max_character_id):
 
             await insert_data_db(move_type, table, current_character_id)
 
-        if current_character_id == 4:
+        if current_character_id == 5:
             print('serenity stance')
             await insert_data_db(serenity_stance, 'serenity_stance', current_character_id)
 
@@ -173,7 +178,7 @@ async def main_data_insert_recursion(current_character_id, max_character_id):
     
 # Finally, we run the main_data_insert_recursion function and it inserts the data for the 20 characters in SF6 into our database
         
-asyncio.run(main_data_insert_recursion(1, 21))
+asyncio.run(main_data_insert_recursion(1, 23))
 
     
 

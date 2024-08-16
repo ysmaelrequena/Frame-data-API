@@ -6,8 +6,6 @@ from typing import Annotated
 from pydantic import BaseModel
 #from db_connection_generic import create_connection, get_cursor
 import mysql.connector
-from routers.auth import auth_router
-from routers.auth import sign_up_router
 
 
 app = FastAPI()
@@ -19,6 +17,7 @@ app = FastAPI()
 def welcome():
     return '''Welcome to the Fighting Game API! Please visit our documentation: (GH documentation) or url/docs for information about the endpoints of the API.'''
 
+def health_check():
+    return {"status": "healthy"}
+
 app.include_router(sf6_endpoints.sf6_router)
-app.include_router(auth_router.security_router)
-app.include_router(sign_up_router.reg_router)

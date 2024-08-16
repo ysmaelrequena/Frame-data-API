@@ -3,6 +3,7 @@ from routers.SF6.database_queries import character_list
 from routers.SF6.database_queries import character_moveset_fetch
 from routers.SF6.database_queries import retrieve_id
 
+
 sf6_router = APIRouter(prefix="/games/SF6/characters",tags=['sf6'])
 
 #Endpoint for the character list
@@ -56,11 +57,6 @@ def movetype_display(character_name: str, movetype: str):
 Version 2:
 Trabajar en endpoint que devuelva al usuario un CSV con la informacion de todos los personajes
 '''
-
-
-
-
-
 
 
 

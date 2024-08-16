@@ -3,7 +3,7 @@
 
 #                                       A Fighting Game API so you can get the frame data of the characters and build your dream App!
 
-The "FGPI" is, like its name indicates, is a compendium of frame data from different games, so that developers can fetch all the information and build tools for players looking for 
+The "FDAPI" is, like its name indicates, is a compendium of frame data from different games, so that developers can fetch all the information and build tools for players looking for 
 competitive knowledge of their game.
 
 ##                                       How did I build it?
@@ -11,7 +11,7 @@ competitive knowledge of their game.
 
 ###                                        The "Character_class" module
 
-FGPI was built with Python in tandem with the FastAPI framework, which is equipped with several features that helped me streamline the creation process. Aside from that, 
+FDAPI was built with Python in tandem with the FastAPI framework, which is equipped with several features that helped me streamline the creation process. Aside from that, 
 I reutilized the Web Scraper from my last project: "The Street Fighter 6 Frame Data CLI Tool", but I adapted it to use a different approach this time that makes it easier 
 to maintain and update in the long term: instead of just scraping and dropping everythin into a database, I followed the 'Builder' design pattern, and created a class which was 
 initialized with four properties: two ("name" and "url") that are to be set up at the moment of calling the class to get the information to the database, and two ("htmltext" 
