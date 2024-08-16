@@ -24,4 +24,5 @@ auth/
 deprecated/
 database/
 MySQL_queries/
+MySQL_queries/fighting_game_api.sql
 all-databases.sql
