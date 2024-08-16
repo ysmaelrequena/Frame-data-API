@@ -26,3 +26,4 @@ database/
 MySQL_queries/
 MySQL_queries/fighting_game_api.sql
 all-databases.sql
+routers/SF6/db_connection_prod.py
