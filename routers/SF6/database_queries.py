@@ -1,4 +1,4 @@
-from routers.SF6.db_connection_local import create_connection, get_cursor
+from routers.SF6.db_connection_prod import create_connection, get_cursor
 import mysql.connector
 
 

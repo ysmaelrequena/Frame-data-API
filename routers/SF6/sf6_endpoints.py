@@ -52,11 +52,7 @@ def movetype_display(character_name: str, movetype: str):
     
     except Exception as err:
         print(f"Error: {err}")
-        
-'''
-Version 2:
-Trabajar en endpoint que devuelva al usuario un CSV con la informacion de todos los personajes
-'''
+
 
 
 
