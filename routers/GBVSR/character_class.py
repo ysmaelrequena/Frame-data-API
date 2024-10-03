@@ -83,14 +83,25 @@ class Character:
                 move_info = move_src.find('div', class_='frameDataGridRow')
                 move_names = move_src.find_all('span', class_ ='mw-headline')
                 
-                
                 frame_obj[move_t] = {}
                 #print(move_info)
                 
-                for move in move_info:
+                for name in move_names:
+                    if name['id'] == 'Air_Normals':
+                        continue
+                    else:
+                        name_data.append(name['id'])
+                        print(name['id'])
+                        
+                        print(name_data)
+                #name_data = []
+                
+                '''
+                for move in move_names:
                     move_info_divs = move.find_all('div')
-                    print(move_info_divs)
-                    
+                    #print(move_info_divs)
+                '''    
+                '''
                     for i, data_cell in enumerate(move_info_divs[:9], start=1): 
                         move_data.append(data_cell.text.strip())
                         print(move_data)    
@@ -106,15 +117,9 @@ class Character:
                             'invul': move_data[7]
                             }   
                             
-                               
-                        if move_info.has_attr('class') and 'colCount-9' in move_info['class']:   
-                            
-                                         
-                        else:
-                            continue
                 
                                 #print(json.dumps(frame_obj, indent=3)) 
-                
+                '''
                 '''
                 character_framedata.update(frame_obj)
                 name_data = []
