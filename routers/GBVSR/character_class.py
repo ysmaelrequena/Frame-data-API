@@ -5,7 +5,28 @@ import json
 import asyncio
 import aiohttp
 
+def move_family_identifier(move_t, old_move, new_move):
+    
+ # Case 1: Moves belong to the same family by the first three characters
+    if new_move[:3] == old_move[:3]:
+        return True
+    
+    # Case 2: Special handling for '22' motions
+    if '22' in old_move or '22' in new_move:
+        return new_move[:2] == old_move[:2]
+    
+    # Case 3: Air-based special moves ('j.')
+    if move_t == 'special_moves' and ('j.' in old_move or 'j.' in new_move):
+        return new_move[:4] == old_move[:4]
+    
+    # Case 4: Follow-up moves always belong to the same family
+    if 'Follow-up' in old_move:
+        return True
 
+    # Default case: No match
+    return False
+    
+    
 class Character:
     
     def __init__(self, name, url):
@@ -173,7 +194,7 @@ class Character:
                         
                             version_move_tracker.append(move_index)
                             move_version_data.append([data_cell.text.strip() for data_cell in move_info_divs])
-                            #print(f'version move: {move_version_data}')
+                            #print(f'''version move: {move_version_data}''')
                             move_index += 1
                            
                 if self.name == '2B':
@@ -238,18 +259,27 @@ class Character:
                         
                    
                     while move_version_data:
+                        print(f'''{move_version_data}
+                              
+                              ''')
                         
                         element = move_version_data.pop(0)
                         version_key = element[0]
                         
                         if nomenclature == '':
                             nomenclature = version_key
+                        print(version_key)
+                        print(nomenclature)
                         
-                        if nomenclature[:3] != version_key[:3]:
+                        if '[' in version_key[:3]:
+                            pass
+                        
+                        elif nomenclature[:3] != version_key[:3]:
+                            
                             copy = element[:]
-                            #print(copy)
+                            print(f'this is a copy: {copy}')
                             nomenclature = version_key
-                            break
+                            break #try changing this break to...
                         
                         if copy != []:
                             
@@ -272,6 +302,7 @@ class Character:
                             copy_key = ''
                             copy_obj = {}
                             copy = []
+                            #here
                         
                         version_obj = {
                             version_key: {
@@ -328,5 +359,5 @@ class Character:
 #use this to check if the scraper is working properly
 
 
-new_char = Character('Gran', 'https://www.dustloop.com/w/GBVSR/Gran').character_scrape()
+new_char = Character('Avatar_Belial', 'https://www.dustloop.com/w/GBVSR/Avatar_Belial').character_scrape()
 asyncio.run(new_char)
